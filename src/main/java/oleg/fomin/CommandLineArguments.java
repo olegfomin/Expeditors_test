@@ -20,7 +20,6 @@ package oleg.fomin;
 public class CommandLineArguments {
 	private String  inputFilePath="";
 	private String  outputFilePath="";
-	private boolean areHeadersIncluded=false;
 	private boolean isHelpUsed = false;
 	
 	public static CommandLineArguments parse(String[] commandLineArgs) {
@@ -40,7 +39,6 @@ public class CommandLineArguments {
 				  };
 				  output.outputFilePath = commandLineArgs[i+1];
 				  break;
-			  case "--include_headers": output.areHeadersIncluded=true; break; 
 			  case "--help": 
 			  case "--usage": printUsage(); output.isHelpUsed = true; break;	  
 			  default: if(clInput.trim().startsWith("--")) throw new IllegalArgumentException("The argument '"+clInput+"' is unknown");	  
@@ -63,10 +61,6 @@ public class CommandLineArguments {
 		return outputFilePath;
 	}
 
-	public boolean areHeadersIncluded() {
-		return areHeadersIncluded;
-	}
-  	
 	public boolean wasHelpUsed() {
 		return isHelpUsed;
 	}

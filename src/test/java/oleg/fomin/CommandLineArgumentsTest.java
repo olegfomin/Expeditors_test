@@ -11,10 +11,9 @@ public class CommandLineArgumentsTest {
 
 	@Test
 	public void shouldParseAllInputArguments () {
-		String[] args = {"--input_file", "~/File2Load.csv", "--output_file", "./output.csv", "--include_headers"};
+		String[] args = {"--input_file", "~/File2Load.csv", "--output_file", "./output.csv"};
 		CommandLineArguments cla = CommandLineArguments.parse(args);
 		
-		assertEquals(cla.areHeadersIncluded(), true);
 		assertEquals(cla.getInputFilePath(), "~/File2Load.csv");
 		assertEquals(cla.getOutputFilePath(), "./output.csv");
 	}
@@ -24,7 +23,6 @@ public class CommandLineArgumentsTest {
 		String[] args = {"--output_file", "./theLonely.csv"};
 		CommandLineArguments cla = CommandLineArguments.parse(args);
 		
-		assertEquals(cla.areHeadersIncluded(), false);
 		assertEquals(cla.getInputFilePath(), "");
 		assertEquals(cla.getOutputFilePath(), "./theLonely.csv");
 	}
