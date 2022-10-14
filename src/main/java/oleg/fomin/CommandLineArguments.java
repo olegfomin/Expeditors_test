@@ -18,9 +18,10 @@ package oleg.fomin;
  *  --usage - prints short memo how the application supposed to be used                    
 */
 public class CommandLineArguments {
-	private String inputFilePath="";
-	private String outputFilePath="";
+	private String  inputFilePath="";
+	private String  outputFilePath="";
 	private boolean areHeadersIncluded=false;
+	private boolean isHelpUsed = false;
 	
 	public static CommandLineArguments parse(String[] commandLineArgs) {
 		CommandLineArguments output = new CommandLineArguments();
@@ -41,7 +42,7 @@ public class CommandLineArguments {
 				  break;
 			  case "--include_headers": output.areHeadersIncluded=true; break; 
 			  case "--help": 
-			  case "--usage": printUsage(); break;	  
+			  case "--usage": printUsage(); output.isHelpUsed = true; break;	  
 			  default: if(clInput.trim().startsWith("--")) throw new IllegalArgumentException("The argument '"+clInput+"' is unknown");	  
 			}
 		}
@@ -51,6 +52,7 @@ public class CommandLineArguments {
 	protected static void printUsage() {
 		System.out.println("java -jar ./Expeditors_test-1.0-SNAPSHOT.jar --input_file <path_to_input_csv_file> --output_file <path_to_output_csv_file> --include_headers \n"+
 	                       "All the parameters are optional and in this case the default values will take place of the argument missing" );
+		
 	}
 
 	public String getInputFilePath() {
@@ -65,4 +67,7 @@ public class CommandLineArguments {
 		return areHeadersIncluded;
 	}
   	
+	public boolean wasHelpUsed() {
+		return isHelpUsed;
+	}
 }

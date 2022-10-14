@@ -41,6 +41,7 @@ public class ExpCsv2Csv {
     {
     	ExpCsv2Csv expCsv2Csv = new ExpCsv2Csv();
     	CommandLineArguments commandLineArgs = expCsv2Csv.parseCommandLineArgs(args);
+    	if(commandLineArgs.wasHelpUsed()) System.exit(0);
     	List<InputCSVRecord> csvRecordList = expCsv2Csv.csvReader.readCSVFile(commandLineArgs.getInputFilePath());
     	Map<Household, Converter.HouseHoldOrig2Count> household2TupleMap = expCsv2Csv.converter.countHouseHolds(csvRecordList);
     	List<String> householdAndCountCsvList =  expCsv2Csv.converter.convertIntoHHCSVList(household2TupleMap);
