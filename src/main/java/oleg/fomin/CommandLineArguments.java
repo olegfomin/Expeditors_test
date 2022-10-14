@@ -48,7 +48,7 @@ public class CommandLineArguments {
 	}
 	
 	protected static void printUsage() {
-		System.out.println("java -jar ./Expeditors_test-1.0-SNAPSHOT.jar --input_file <path_to_input_csv_file> --output_file <path_to_output_csv_file> --include_headers \n"+
+		System.out.println("java -jar ./Expeditors_test-1.0-SNAPSHOT.jar --input_file <path_to_input_csv_file> --output_file <path_to_output_csv_file> \n"+
 	                       "All the parameters are optional and in this case the default values will take place of the argument missing" );
 		
 	}

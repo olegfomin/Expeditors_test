@@ -20,8 +20,6 @@ responsible for merging all external dependencies into the executable file that 
       This header will not participate in the calculations so if you do not like it go ahead and delete it 
  * --output_file - it must be followed by space or spaces and then it should contain 
  *                 the path to the output file where the resulting .CSV file will be put. By default it will print everything into stdout (terminal)
- * --include_headers - this is a unary argument that disregards any parameters supplied but if it is present then the output file will contain a comment lines that starts with #. The first line will contain: #"Household address", "number of occupants" and the when this section 
- is filled with data then another header will appear that looks as follows: #"First Name", "Last Name", "Address", "Age" and then the appropriate csv records will follow. By default if this flag is NOT present the headers will NOT be included.
              
 # The original task
 ##Exercise Summary:
