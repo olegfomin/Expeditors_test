@@ -1,11 +1,13 @@
 package oleg.fomin;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-/* Prints the CSV file into the file of stdout if the filename is absent */
+/* Prints the CSV file into the file or stdout
 public class Writer {
 
 	/**
@@ -13,36 +15,29 @@ public class Writer {
 	 * @param fileName - file name where the output is being written if it is absent then write to the console 
 	 * @param list
 	 */
+public class Writer {
   public void write(String fileName, List<String> list) {
 	    boolean isFileNamePresent = (fileName != null && !fileName.equals(""));
-	    
+	    BufferedWriter out=null;;
 	    if(isFileNamePresent) { // If output file specified
-		    FileOutputStream outputStream=null;
-			try {
-		
-				try {
-					outputStream = new FileOutputStream(fileName);
-				} catch (FileNotFoundException e1) {
-					throw new IllegalStateException("Cannot open file '"+fileName+"'",e1);
-				}
-			    for(String elem : list) {
-			    	byte[] strToBytes = elem.getBytes();	
-				    try {
-						outputStream.write(strToBytes);
-					} catch (IOException e) {
-						throw new IllegalStateException("Cannot write into '"+fileName+"'",e);
+	        try {
+	            out = new BufferedWriter(new FileWriter(fileName, true));
+                for(String elem : list) {
+    	            out.write(elem+"\n");
+                }
+	            out.close();
+             }
+	 
+	        // Catch block to handle the exceptions
+	        catch (IOException e) {
+	        	if(out != null) {
+	        		try {
+						out.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
 					}
-			    }
-			    
-			} finally {
-				if(outputStream != null) {
-			      try {
-					outputStream.close();
-	    		  } catch (IOException e) {
-					e.printStackTrace();
-				  }
-				}
-			}
+	        	}
+	        }
 	    } else { // If no output file specified then writing to console
            for(String csvRecord : list) {
 		     System.out.println(csvRecord); 

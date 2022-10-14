@@ -19,20 +19,29 @@ public class CSVReader {
 		return new File(classLoader.getResource("test.txt").getFile()); 
 	}
 	
+	private BufferedReader getBufferedReader(String fileName) throws IOException {
+		BufferedReader reader = null;
+		if(fileName==null || fileName.trim().equals("")) {
+			InputStream in = getClass().getResourceAsStream("/test.txt");
+		    reader = new BufferedReader(new InputStreamReader(in));
+		} else {
+			InputStream inputStream = new FileInputStream(fileName);
+		    reader = new BufferedReader(new InputStreamReader(inputStream));
+		}
+		return reader;
+	}
+	
 	/** Reads the CSV file provided as an argument if empty string or null provided then the information read from 
 	 * inside jar file itself
 	 * @param file2Read - CSV file to be read (null or empty are Ok)
 	 * @return
 	 */
 	public List<InputCSVRecord> readCSVFile(String file2Read) {
-		InputStream inputStream = null;
 		BufferedReader reader = null;
 		List<InputCSVRecord> csvRecordList = new ArrayList<>();
 		try {
-		    File file = file2Read==null || file2Read.equals("") ? getInnerFile() :  new File(file2Read);
 		    try {
-				inputStream = new FileInputStream(file);
-			    reader = new BufferedReader(new InputStreamReader(inputStream));
+			    reader = getBufferedReader(file2Read);
 			    while(reader.ready()) {
 			        String line = reader.readLine();
 			        if(!line.startsWith(COMMENT_LINE_INDICATOR)) {
@@ -47,13 +56,6 @@ public class CSVReader {
 		    
 		}     
 		finally {
-		    if (inputStream != null) {
-		        try {
-		            inputStream.close();
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		    }
 		    if(reader != null) {
 		        try {
 		        	reader.close();
